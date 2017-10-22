@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <chopstx.h>
-#include <mcu/efm32.h>
+#include <mcu/efm32hg.h>
 #include "board.h"
 #include "sys.h" /* for set_led */
 #include "usb_lld.h"

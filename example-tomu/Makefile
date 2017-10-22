@@ -6,7 +6,7 @@ CHOPSTX = ..
 LDSCRIPT= sample.ld
 CSRC = sample.c usb-cdc.c
 
-CHIP=efm32
+CHIP=efm32hg
 USE_SYS = yes
 USE_ADC = yes
 USE_USB = yes
