@@ -1111,10 +1111,10 @@ usb_lld_reset (struct usb_dev *dev, uint8_t feature)
   efm32hg_prepare_ep0_setup (dev);
   efm32hg_enable_ints ();
 
-  for (int i = 0; i < MAX_NUM_IN_EPS; ++i)
+  for (i = 0; i < MAX_NUM_IN_EPS; ++i)
     efm32hg_disable_ep_in (i);
 
-  for (int i = 0; i < MAX_NUM_OUT_EPS; ++i)
+  for (i = 0; i < MAX_NUM_OUT_EPS; ++i)
     efm32hg_disable_ep_out (i);
 }
 
