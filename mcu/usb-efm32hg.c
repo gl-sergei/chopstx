@@ -963,7 +963,7 @@ usb_lld_event_handler (struct usb_dev *dev)
 
                       USB_DOUTEPS[ep].INT = USB_DOEP0INT_STUPPKTRCVD;
 
-                      if (sts & USB_DOEP0INT_SETUP || dev->state == WAIT_SETUP)
+                      if (sts & USB_DOEP0INT_SETUP)
                         {
                           USB->DOEP0INT = USB_DOEP0INT_SETUP;
                           int supcnt = (USB->DOEP0TSIZ & 0x60000000UL) >> 29;
@@ -971,7 +971,7 @@ usb_lld_event_handler (struct usb_dev *dev)
                           dev->dev_req = ep0_setup_pkt[2 - supcnt];
                           r = handle_setup0 (dev);
                         }
-                      else
+                      else if (dev->state != WAIT_SETUP)
                         r = handle_out0 (dev);
                     }
                   else /* ep != 0 */
