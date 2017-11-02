@@ -963,7 +963,7 @@ usb_lld_event_handler (struct usb_dev *dev)
 
                       USB_DOUTEPS[ep].INT = USB_DOEP0INT_STUPPKTRCVD;
 
-                      if (sts & USB_DOEP0INT_SETUP)
+                      if (sts & USB_DOEP0INT_SETUP || dev->state == WAIT_SETUP)
                         {
                           USB->DOEP0INT = USB_DOEP0INT_SETUP;
                           int supcnt = (USB->DOEP0TSIZ & 0x60000000UL) >> 29;
@@ -982,6 +982,17 @@ usb_lld_event_handler (struct usb_dev *dev)
                       else
                         len = 0;
                       return USB_MAKE_TXRX (ep, 0, len);
+                    }
+                }
+              else
+                {
+                  if (ep == 0 && sts & USB_DOEP0INT_SETUP)
+                    {
+                      USB->DOEP0INT = USB_DOEP0INT_SETUP;
+                      int supcnt = (USB->DOEP0TSIZ & 0x60000000UL) >> 29;
+                      supcnt = (supcnt == 3) ? 2 : supcnt;
+                      dev->dev_req = ep0_setup_pkt[2 - supcnt];
+                      r = handle_setup0 (dev);
                     }
                 }
 
@@ -1079,6 +1090,9 @@ usb_lld_ctrl_error (struct usb_dev *dev)
   efm32hg_prepare_ep0_setup (dev);
 }
 
+#define NVIC_ICPR ((uint32_t *)(0xe000e280))
+#define NVIC_INTR_CLR(n)  { NVIC_ICPR[n >> 5] = 1 << (n & 0x1f); }
+
 void
 usb_lld_reset (struct usb_dev *dev, uint8_t feature)
 {
@@ -1116,6 +1130,10 @@ usb_lld_reset (struct usb_dev *dev, uint8_t feature)
 
   for (i = 0; i < MAX_NUM_OUT_EPS; ++i)
     efm32hg_disable_ep_out (i);
+
+  /* Clear pending interrupts for IRQ line 19 hack. chx_clr_intr isn't exposed
+  and I don't feel like it needs to be. */
+  NVIC_INTR_CLR (19);
 }
 
 void
