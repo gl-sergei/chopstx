@@ -1,6 +1,0 @@
-*.pem
-*.der
-*.csr
-cert/certificates.c
-board.h
-
