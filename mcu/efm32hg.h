@@ -933,3 +933,31 @@ struct MSC
 
 #define MSC_BASE (0x400C0000UL)        /* MSC base address */
 #define MSC ((struct MSC *) MSC_BASE)  /* MSC base pointer */
+
+
+struct WDOG
+{
+  volatile uint32_t CTRL;              /* Control Register */
+  volatile uint32_t CMD;               /* Command Register */
+  const volatile uint32_t SYNCBUSY;    /* Synchronization Busy Register */
+};
+
+#define WDOG_BASE (0x40088000UL)         /* WDOG base address */
+#define WDOG ((struct WDOG *) WDOG_BASE) /* WDOG base pointer */
+
+
+struct SCB
+{
+  volatile const uint32_t CPUID;  /* Offset: 0x000 (R/ )  CPUID Base Register */
+  volatile uint32_t ICSR;         /* Offset: 0x004 (R/W)  Interrupt Control and State Register */
+  volatile uint32_t VTOR;         /* Offset: 0x008 (R/W)  Vector Table Offset Register */
+  volatile uint32_t AIRCR;        /* Offset: 0x00C (R/W)  Application Interrupt and Reset Control Register */
+  volatile uint32_t SCR;          /* Offset: 0x010 (R/W)  System Control Register */
+  volatile uint32_t CCR;          /* Offset: 0x014 (R/W)  Configuration Control Register */
+  uint32_t RESERVED1;
+  volatile uint32_t SHP[2U];      /* Offset: 0x01C (R/W)  System Handlers Priority Registers. [0] is RESERVED */
+  volatile uint32_t SHCSR;        /* Offset: 0x024 (R/W)  System Handler Control and State Register */
+};
+
+#define SCB_BASE (0XE000ED00UL)       /* System Control Block Base address */
+#define SCB ((struct SCB*) SCB_BASE)  /* SCB configuration struct */

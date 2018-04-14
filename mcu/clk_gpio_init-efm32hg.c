@@ -31,6 +31,9 @@
 static void __attribute__((used))
 clock_init (void)
 {
+  /* disable watchdog timer (set by toboot) */
+  WDOG->CTRL = 0;
+
   CMU->HFPERCLKEN0 = CMU_HFPERCLKEN0_GPIO;
   CMU->HFPERCLKDIV = 1 << 8;
 
