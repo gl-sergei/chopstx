@@ -1,7 +1,7 @@
 #define BOARD_NAME "Black Pill"
 /* https://wiki.stm32duino.com/index.php?title=Black_Pill */
 /* echo -n "Black Pill" | shasum -a 256 | sed -e 's/^.*\(........\)  -$/\1/' */
-#define BOARD_ID    0xa1099d43
+#define BOARD_ID    0xc7c1f677
 
 #define STM32F10X_MD		/* Medium-density device */
 
