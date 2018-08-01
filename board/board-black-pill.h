@@ -22,7 +22,7 @@
  * PB12 - Push pull output 50MHz (LED 1:ON 0:OFF)
  * ------------------------ Default
  * PAx  - input with pull-up
- * PCx  - input with pull-up
+ * PBx  - input with pull-up
  */
 #define VAL_GPIO_USB_ODR            0xFFFFE7FF
 #define VAL_GPIO_USB_CRL            0x88888888      /*  PA7...PA0 */
@@ -32,5 +32,5 @@
 #define VAL_GPIO_LED_CRL            0x88888888      /*  PB7...PB0 */
 #define VAL_GPIO_LED_CRH            0x88838888      /* PB15...PB8 */
 
-#define RCC_ENR_IOP_EN      (RCC_APB2ENR_IOPBEN | RCC_APB2ENR_IOPCEN)
+#define RCC_ENR_IOP_EN      (RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN)
 #define RCC_RSTR_IOP_RST    (RCC_APB2RSTR_IOPARST | RCC_APB2RSTR_IOPCRST)
