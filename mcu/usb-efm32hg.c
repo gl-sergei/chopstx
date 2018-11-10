@@ -39,8 +39,8 @@
 
 /* Implementation */
 
-static struct device_req ep0_setup_pkt[3] __attribute__ ((aligned(4)));
-static char ctrl_send_buf[USB_MAX_PACKET_SIZE] __attribute__ ((aligned(4)));
+static struct device_req ep0_setup_pkt[3];
+static char ctrl_send_buf[USB_MAX_PACKET_SIZE];
 
 /* Enpoint state struct */
 struct efm32hg_ep
@@ -272,7 +272,7 @@ std_none (struct usb_dev *dev)
   return -1;
 }
 
-static uint16_t status_info __attribute__((aligned(4)));
+static uint16_t status_info;
 
 static int
 std_get_status (struct usb_dev *dev)
@@ -667,10 +667,10 @@ efm32hg_revno (struct efm32hg_rev *rev)
   /* CHIP FAMILY bit [1:0] */
   tmp |=  ((ROMTABLE->PID0 & 0xc0) >> 6);
   rev->family = tmp;
- 
+
   /* CHIP MAJOR bit [3:0] */
   rev->major = (ROMTABLE->PID0 & 0x3f);
- 
+
   /* CHIP MINOR bit [7:4] */
   tmp  = (((ROMTABLE->PID2 & 0xf0) >> 4) << 4);
   /* CHIP MINOR bit [3:0] */

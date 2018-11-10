@@ -19,6 +19,9 @@ endif
 ifneq ($(USE_ADC),)
 CSRC += $(CHOPSTX)/contrib/adc-$(CHIP).c
 endif
+ifneq ($(USE_AES),)
+CSRC += $(CHOPSTX)/contrib/aes-$(CHIP).c
+endif
 
 INCDIR += $(CHOPSTX)
 

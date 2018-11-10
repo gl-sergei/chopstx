@@ -553,6 +553,19 @@
 
 #define MSC_UNLOCK_CODE      0x1B71 /* MSC unlock code */
 
+/* Bit fields for AES CTRL */
+#define AES_CTRL_DECRYPT        (0x1UL << 0) /* Decryption/Encryption Mode */
+#define AES_CTRL_DATASTART      (0x1UL << 4) /* AES_DATA Write Start */
+#define AES_CTRL_XORSTART       (0x1UL << 5) /* AES_XORDATA Write Start */
+#define AES_CTRL_BYTEORDER      (0x1UL << 6) /* Configure byte order in data and key registers */
+
+/* Bit fields for AES CMD */
+#define AES_CMD_START           (0x1UL << 0) /* Encryption/Decryption Start */
+#define AES_CMD_STOP            (0x1UL << 1) /* Encryption/Decryption Stop */
+
+/* Bit fields for AES STATUS */
+#define AES_STATUS_RUNNING      (0x1UL << 0) /* AES Running */
+
 struct CMU
 {
   volatile uint32_t CTRL;          /* CMU Control Register */
@@ -961,3 +974,25 @@ struct SCB
 
 #define SCB_BASE (0XE000ED00UL)       /* System Control Block Base address */
 #define SCB ((struct SCB*) SCB_BASE)  /* SCB configuration struct */
+
+
+struct AES
+{
+  volatile uint32_t CTRL;         /* Control Register */
+  volatile uint32_t CMD;          /* Command Register */
+  volatile const uint32_t STATUS; /* Status Register */
+  volatile uint32_t IEN;          /* Interrupt Enable Register */
+  volatile const uint32_t IF;     /* Interrupt Flag Register */
+  volatile uint32_t IFS;          /* Interrupt Flag Set Register */
+  volatile uint32_t IFC;          /* Interrupt Flag Clear Register */
+  volatile uint32_t DATA;         /* DATA Register */
+  volatile uint32_t XORDATA;      /* XORDATA Register */
+  uint32_t RESERVED0[3];          /* Reserved for future use */
+  volatile uint32_t KEYLA;        /* KEY Low Register */
+  volatile uint32_t KEYLB;        /* KEY Low Register */
+  volatile uint32_t KEYLC;        /* KEY Low Register */
+  volatile uint32_t KEYLD;        /* KEY Low Register */
+};
+
+#define AES_BASE (0x400E0000UL)       /* AES Base address */
+#define AES ((struct AES*) AES_BASE)  /* AES base pointer */
